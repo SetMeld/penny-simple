@@ -1,0 +1,22 @@
+@import "tailwindcss/base";
+
+/* Write your own custom base styles here */
+:root {
+  scroll-behavior: smooth;
+}
+
+* {
+  accent-color: theme("colors.gray.700");
+}
+
+/* Start purging... */
+@import "tailwindcss/components";
+/* Stop purging. */
+
+/* Write your own custom component styles here */
+
+/* Start purging... */
+@import "tailwindcss/utilities";
+/* Stop purging. */
+
+/* Your own custom utilities */

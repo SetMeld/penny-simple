@@ -1,0 +1,37 @@
+@prefix : <#>.
+
+@prefix dct: <http://purl.org/dc/terms/>.
+
+@prefix ldp: <http://www.w3.org/ns/ldp#>.
+
+@prefix stat: <http://www.w3.org/ns/posix/stat#>.
+
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
+
+@prefix malicious: <>.
+
+@prefix tur: <http://www.w3.org/ns/iana/media-types/text/turtle#>.
+
+
+
+malicious:
+
+    a ldp:BasicContainer, ldp:Container;
+
+    dct:modified "2023-03-20T08:37:29Z"^^xsd:dateTime;
+
+    ldp:contains <foo:javascript:alert(1)>;
+
+    stat:mtime 1679301449.594;
+
+    stat:size 4096 .
+
+<foo:javascript:alert(1)>
+
+    a tur:Resource, ldp:Resource;
+
+    dct:modified "2023-03-20T08:39:04Z"^^xsd:dateTime;
+
+    stat:mtime 1679301544.703;
+
+    stat:size 662 .

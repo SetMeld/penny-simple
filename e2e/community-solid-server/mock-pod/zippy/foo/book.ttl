@@ -1,0 +1,1 @@
+<http://example.org/books/Huckleberry_Finn> <http://example.org/relation/author> <http://example.org/person/Mark_Twain> .

@@ -1,0 +1,101 @@
+include:
+  - project: 'vincenttunru/ci-templates'
+    file: '/spa.gitlab-ci.yml'
+
+cache:
+  paths:
+  - node_modules/
+
+
+stages:
+  - build
+  - test
+  - release
+
+build:
+  image: node:20
+  stage: build
+  script:
+  - npm ci
+  - npm run build:standalone
+  artifacts:
+    paths:
+    - out
+
+build_integrated:
+  image: node:20
+  stage: build
+  script:
+  - npm ci
+  - npm run build:server-ui
+  artifacts:
+    paths:
+    - server-ui
+
+test:
+  image: node:20
+  stage: test
+  script:
+  - npm ci
+  - npm test
+
+e2e_test_standalone:
+  stage: test
+  image: mcr.microsoft.com/playwright:v1.51.1-noble
+  dependencies:
+    - build
+  script:
+    - npm run e2e:standalone
+  artifacts:
+    paths:
+      - playwright-report/index.html
+      - test-results
+      - playwright-report
+    expose_as: 'Playwrite report - standalone mode'
+    when: always
+    expire_in: 1 week
+
+e2e_test_integrated:
+  stage: test
+  image: mcr.microsoft.com/playwright:v1.51.1-noble
+  dependencies:
+    - build_integrated
+  script:
+    - npm run e2e:server-ui
+  artifacts:
+    paths:
+      - playwright-report/index.html
+      - test-results
+      - playwright-report
+    expose_as: 'Playwrite report - integrated mode'
+    when: always
+    expire_in: 1 week
+
+publish_npm:
+  stage: release
+  image: node:20
+  dependencies:
+    - build
+    - build_integrated
+    - e2e_test_integrated
+  rules:
+    - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH && $NPM_TOKEN'
+      when: always
+  script:
+    - echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/.npmrc
+    - export NEW_VERSION="0.$CI_PIPELINE_ID.$CI_JOB_ID"
+    # `out` is in `.gitignore` - by renaming it `standalone`,
+    # the standalone app will be available pre-built on npm as well:
+    - mv out standalone
+    - npm version --no-git-tag-version $NEW_VERSION
+    - npx publint
+    - npm publish
+    - npm pack
+    - mv "penny-pod-inspector-${NEW_VERSION}.tgz" package.tgz
+  environment:
+    name: production
+    url: https://www.npmjs.com/package/penny-pod-inspector
+  artifacts:
+    expire_in: 1 month
+    paths:
+      - package.tgz
