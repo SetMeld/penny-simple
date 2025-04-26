@@ -234,13 +234,13 @@ export const DatasetViewer: FC<Props> = (props) => {
             <SectionHeading>Danger Zone</SectionHeading>
           </ClientLocalized>
           <div className="grid gap-5 pb-5 sm:grid-cols-2">
-            <button
+            {/* <button
               onClick={() => setShowRawTurtle(true)}
               className="flex items-center space-x-2 rounded border-4 border-gray-700 p-5 text-lg text-gray-700 hover:bg-gray-700 hover:text-white focus:bg-gray-700 focus:text-white focus:outline-none focus:ring-2 focus:ring-gray-700 focus:ring-opacity-50 focus:ring-offset-2"
             >
               <VscCode aria-hidden="true" />
               <span>{l10n.getString("dataset-view-turtle")}</span>
-            </button>
+            </button> */}
             {deletionModal}
             <button
               className="flex items-center space-x-2 rounded border-4 border-red-700 p-5 text-lg text-red-700 hover:bg-red-700 hover:text-white focus:bg-red-700 focus:text-white focus:outline-none focus:ring-2 focus:ring-red-700 focus:ring-opacity-50 focus:ring-offset-2"
@@ -341,7 +341,7 @@ export const DatasetViewer: FC<Props> = (props) => {
 
   return (
     <>
-      {datasetEditor}
+      {/* datasetEditor */}
       <LinkedResourcesViewer dataset={props.dataset} />
       {dangerZone}
     </>

@@ -146,7 +146,7 @@ export const LinkedResourcesViewer: FC<Props> = (props) => {
         >
           <MdAdd aria-hidden="true" className="text-3xl" />
           <ClientLocalized id="linked-resources-acl-add">
-            <span>Add Access Control List</span>
+            <span>Create Sharing Preferences</span>
           </ClientLocalized>
         </button>,
       );
@@ -163,7 +163,7 @@ export const LinkedResourcesViewer: FC<Props> = (props) => {
   return (
     <>
       <ClientLocalized id="linked-resources-heading">
-        <SectionHeading>Linked Resources</SectionHeading>
+        <SectionHeading>Sharing</SectionHeading>
       </ClientLocalized>
       <div className="space-y-10 pb-10">
         {resourceLinks}

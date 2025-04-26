@@ -187,12 +187,12 @@ wac-control-agent-add-icon =
 wac-control-agent-remove-icon =
   .aria-label = Remove `{$agent}`
 
-linked-resources-heading = Linked Resources
-linked-resources-acl-label = Access Control List
-linked-resources-acl-add = Add Access Control List
-linked-resources-acl-add-toast-success = Access Control List created.
+linked-resources-heading = Sharing
+linked-resources-acl-label = Sharing Preferences
+linked-resources-acl-add = Create Sharing Preferences
+linked-resources-acl-add-toast-success = Sharing Preferences created.
 linked-resources-acl-add-toast-error-not-allowed = You do not have permission to modify this Resource's Access Control List.
-linked-resources-acl-add-toast-error-other = Could not create an Access Control List.
+linked-resources-acl-add-toast-error-other = Could not create an Sharing Preferences.
 linked-resources-acr-label = Access Control Resource
 
 predicate-add-button = New property

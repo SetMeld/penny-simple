@@ -1,7 +1,10 @@
 import { login } from "@inrupt/solid-client-authn-browser";
 import { removeItem, setItem } from "./localStorage";
 
+const PRE_REDIRECT_URI = "PRE_REDIRECT_URI";
+
 export async function connect(issuer: string) {
+  console.log("CONNECTING AUTH!!!!!!!!!!!!!!!!!!!!!!!!!");
   try {
     const clientId = getClientIdFor(issuer);
     if (clientId === null) {
@@ -10,7 +13,7 @@ export async function connect(issuer: string) {
         clientName: "Penny",
       });
     } else {
-      setItem("redirect-url", document.location.href);
+      setItem(PRE_REDIRECT_URI, document.location.href);
       return await login({
         oidcIssuer: issuer,
         clientId: clientId,
@@ -18,7 +21,7 @@ export async function connect(issuer: string) {
       });
     }
   } catch (e) {
-    removeItem("redirect-url");
+    removeItem(PRE_REDIRECT_URI);
     throw e;
   }
 }
