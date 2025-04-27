@@ -4,22 +4,12 @@ import { removeItem, setItem } from "./localStorage";
 const PRE_REDIRECT_URI = "PRE_REDIRECT_URI";
 
 export async function connect(issuer: string) {
-  console.log("CONNECTING AUTH!!!!!!!!!!!!!!!!!!!!!!!!!");
   try {
     const clientId = getClientIdFor(issuer);
-    if (clientId === null) {
-      return await login({
-        oidcIssuer: issuer,
-        clientName: "Penny",
-      });
-    } else {
-      setItem(PRE_REDIRECT_URI, document.location.href);
-      return await login({
-        oidcIssuer: issuer,
-        clientId: clientId,
-        redirectUrl: document.location.origin,
-      });
-    }
+    return await login({
+      oidcIssuer: issuer,
+      clientName: "Solid App",
+    });
   } catch (e) {
     removeItem(PRE_REDIRECT_URI);
     throw e;

@@ -18,6 +18,8 @@ import * as storage from "../functions/localStorage";
 import { LocalizationProvider } from "@fluent/react";
 import { getL10n } from "../functions/getL10n";
 
+const PRE_REDIRECT_URI = "PRE_REDIRECT_URI";
+
 if (typeof document === "object") {
   const appElement = document.querySelector(
     "#appWrapper > *:first-child",
@@ -45,7 +47,7 @@ export const MyApp: FC<AppProps> = ({ Component, pageProps }) => {
   useEffect(() => {
     setSessionInfo(undefined);
     handleIncomingRedirect({
-      restorePreviousSession: storage.getItem("autoconnect") === "true",
+      restorePreviousSession: false,
       useEssSession: false,
     }).then((info) => {
       if (info && info.isLoggedIn) {
@@ -54,9 +56,9 @@ export const MyApp: FC<AppProps> = ({ Component, pageProps }) => {
           storage.setItem("last-successful-idp", lastAttemptedIdp);
         }
         setSessionInfo(info as SessionInfo);
-        const redirectUrl = storage.getItem("redirect-url");
+        const redirectUrl = storage.getItem(PRE_REDIRECT_URI);
         if (typeof redirectUrl === "string") {
-          storage.removeItem("redirect-url");
+          storage.removeItem(PRE_REDIRECT_URI);
           router.replace(redirectUrl);
         }
       } else {
