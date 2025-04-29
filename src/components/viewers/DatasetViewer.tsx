@@ -37,6 +37,7 @@ import { hasAccess } from "../../functions/hasAccess";
 import { useL10n } from "../../hooks/l10n";
 import { SWRConfig } from "swr";
 import { TurtleViewer } from "./TurtleViewer";
+import { WacControl } from "./things/WacControl";
 
 interface Props {
   dataset: LoadedCachedDataset;
@@ -313,13 +314,10 @@ export const DatasetViewer: FC<Props> = (props) => {
     ) : (
       things.map((thing) => (
         <div key={asUrl(thing) + "_thing"}>
-          <ThingViewer
+          <WacControl
             dataset={props.dataset}
             thing={thing}
             onUpdate={onUpdateThing}
-            collapsed={collapsedThings.includes(asUrl(thing))}
-            onCollapse={getCollapseHandler(thing)}
-            isServerManaged={isServerManaged(thing)}
           />
         </div>
       ))
@@ -328,20 +326,12 @@ export const DatasetViewer: FC<Props> = (props) => {
   const datasetEditor = isEditableClientId ? (
     <ClientIdViewer dataset={props.dataset} />
   ) : (
-    <div className="space-y-10 pb-10">
-      <ClientLocalized id="dataset-things-heading">
-        <SectionHeading>Things</SectionHeading>
-      </ClientLocalized>
-      {thingsListing}
-      <HasAccess access={["append"]} resource={props.dataset.data}>
-        <ThingAdder dataset={props.dataset} onUpdate={onUpdateThing} />
-      </HasAccess>
-    </div>
+    <div className="space-y-10 pb-10">{thingsListing}</div>
   );
 
   return (
     <>
-      {/* datasetEditor */}
+      {datasetEditor}
       <LinkedResourcesViewer dataset={props.dataset} />
       {dangerZone}
     </>
