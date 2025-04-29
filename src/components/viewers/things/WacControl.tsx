@@ -26,6 +26,7 @@ import { ClientLocalized } from "../../ClientLocalized";
 import { Toggle } from "../../ui/Toggle";
 import { LoadedCachedDataset } from "../../../hooks/dataset";
 import { useL10n } from "../../../hooks/l10n";
+import { ContactsSelector } from "./ContactsSelector";
 
 interface Props {
   dataset: LoadedCachedDataset;
@@ -372,12 +373,7 @@ const AgentAdder: FC<AgentAdderProps> = (props) => {
       <label htmlFor="webId" className="sr-only">
         WebID:
       </label>
-      <input
-        type="url"
-        name="webId"
-        id="webId"
-        className="flex-grow rounded bg-white p-2 focus:outline-none focus:ring-2 focus:ring-gray-700"
-        placeholder="e.g. https://example.com/profile/card#me"
+      <ContactsSelector
         value={webId}
         onChange={(event) => setWebId(event.target.value)}
       />

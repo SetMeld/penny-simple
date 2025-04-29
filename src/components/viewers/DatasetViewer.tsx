@@ -92,6 +92,7 @@ export const DatasetViewer: FC<Props> = (props) => {
     // The restoration needs to be triggered after the updated SolidDataset has been passed to
     // DatasetViewer, otherwise solid-client will think this is just a local change that it can undo:
     const undo = () => {
+      console.log("Undoing");
       setThingToRestore(changedThing);
     };
     toast(
